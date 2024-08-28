@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const dateTo = document.getElementById('dateTo').value;
 
         if (!facilityDescription || !dateFrom || !dateTo) {
-            errorElement.textContent = 'All fields are required.';
+            errorElement.textContent = 'All fields are required.';  
             return;
         }
 

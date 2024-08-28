@@ -1,10 +1,23 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bookings</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
         .logout-button {
             position: absolute;
             top: 10px;
@@ -14,6 +27,36 @@
             color: white;
             border: none;
             cursor: pointer;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e9e9e9;
         }
 
         .modal {
@@ -33,6 +76,8 @@
             padding: 20px;
             border-radius: 5px;
             text-align: center;
+            width: 80%;
+            max-width: 500px;
         }
 
         .modal-buttons {
@@ -43,16 +88,19 @@
             padding: 8px 16px;
             margin: 0 10px;
             cursor: pointer;
+            border-radius: 5px;
         }
 
         .yes-button {
             background-color: green;
             color: white;
+            border: none;
         }
 
         .no-button {
             background-color: gray;
             color: white;
+            border: none;
         }
 
         /* New styles for the delete confirmation */
@@ -60,6 +108,9 @@
             margin-top: 10px;
             padding: 5px;
             width: 100%;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid #ccc;
         }
 
         .delete-confirm-button {
@@ -71,20 +122,52 @@
             margin-top: 10px;
             opacity: 0.5;
             cursor: not-allowed;
+            border-radius: 5px;
         }
 
             .delete-confirm-button.enabled {
                 opacity: 1;
                 cursor: pointer;
             }
+
+        #error {
+            text-align: center;
+            color: red;
+            margin-top: 20px;
+        }
+
+        .make-booking-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .make-booking-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+            .make-booking-button:hover {
+                background-color: #0056b3;
+            }
     </style>
 </head>
+
 <body>
     <h1>Your Bookings</h1>
+    <div class="make-booking-container">
+        <a href="CreateBooking.html">
+            <button class="make-booking-button">Make a booking</button>
+        </a>
+    </div>
 
     <button class="logout-button" id="logoutButton">Log Out</button>
 
-    <table id="bookingsTable" border="1">
+    <table id="bookingsTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -102,13 +185,9 @@
         </tbody>
     </table>
 
-    <div id="error" style="color: red;"></div>
+    <div id="error"></div>
 
-    <div style="padding-top: 20px;">
-        <a href="CreateBooking.html">
-            <button>Make a booking</button>
-        </a>
-    </div>
+
 
     <!-- Logout Confirmation Modal -->
     <div id="logoutModal" class="modal">
@@ -125,12 +204,13 @@
     <div id="deleteModal" class="modal">
         <div class="modal-content">
             <p id="deleteMessage"></p>
-            <input type="text" id="deleteInput" class="confirmation-input" autocomplete="false" onpaste="return false" ondrop="return false" placeholder="Type to confirm...">
-            <button id="confirmDelete" class="delete-confirm-button" autocomplete="false">Delete Booking</button>
+            <input type="text" id="deleteInput" class="confirmation-input" autocomplete="off" placeholder="Type to confirm...">
+            <button id="confirmDelete" class="delete-confirm-button">Delete Booking</button>
             <button id="cancelDelete" class="modal-button no-button">Cancel</button>
         </div>
     </div>
 
     <script src="bookings.js"></script>
 </body>
+
 </html>
