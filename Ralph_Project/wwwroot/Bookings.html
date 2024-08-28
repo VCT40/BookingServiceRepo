@@ -204,7 +204,7 @@
     <div id="deleteModal" class="modal">
         <div class="modal-content">
             <p id="deleteMessage"></p>
-            <input type="text" id="deleteInput" class="confirmation-input" autocomplete="off" placeholder="Type to confirm...">
+            <input type="text" id="deleteInput" class="confirmation-input" autocomplete="off" onpaste="return false" ondrop="return false"placeholder="Type to confirm...">
             <button id="confirmDelete" class="delete-confirm-button">Delete Booking</button>
             <button id="cancelDelete" class="modal-button no-button">Cancel</button>
         </div>
