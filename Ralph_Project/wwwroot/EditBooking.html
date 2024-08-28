@@ -6,52 +6,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Booking</title>
     <style>
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
         }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-            .form-group label {
-                display: block;
-                margin-bottom: 5px;
-            }
-
-            .form-group input {
-                width: 100%;
-                padding: 8px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-            }
-
-            .form-group button {
-                padding: 10px 20px;
-                background-color: #28a745;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-
-                .form-group button:disabled {
-                    background-color: #aaa;
-                }
 
         .back-button {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 20px;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
             color: #007bff;
             cursor: pointer;
             text-decoration: none;
         }
+
+        h1 {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            .form-group button {
+                width: 100%;
+                padding: 12px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+                .form-group button:disabled {
+                    background-color: #aaa;
+                    cursor: not-allowed;
+                }
+
+                .form-group button:hover:not(:disabled) {
+                    background-color: #218838;
+                }
+
+        #error {
+            text-align: center;
+            color: red;
+            margin-top: 20px;
+        }
+
+        /* Transfer Booking Button */
+        #transferBookingBtn {
+            display: block;
+            margin: 30px auto;
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            #transferBookingBtn:hover {
+                background-color: #0056b3;
+            }
 
         /* Modal Styles */
         .modal {
@@ -63,25 +111,30 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgb(0, 0, 0);
             background-color: rgba(0, 0, 0, 0.4);
             padding-top: 60px;
+            justify-content: center;
+            align-items: center;
         }
 
         .modal-content {
             background-color: white;
-            margin: 5% auto;
+            margin: auto;
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
             max-width: 500px;
             border-radius: 8px;
             text-align: center;
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
             color: #aaa;
-            float: right;
             font-size: 28px;
             font-weight: bold;
         }
@@ -101,17 +154,18 @@
             padding: 8px 16px;
             margin: 0 10px;
             cursor: pointer;
+            border-radius: 4px;
+            border: none;
+            font-size: 16px;
         }
 
         .delete-confirm-button {
             background-color: red;
             color: white;
-            border: none;
-            padding: 8px 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            opacity: 0.5;
+            padding: 12px 20px;
             cursor: not-allowed;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
         }
 
             .delete-confirm-button.enabled {
@@ -121,44 +175,52 @@
 
         .confirmation-input {
             margin-top: 10px;
-            padding: 5px;
+            padding: 10px;
             width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
-
     </style>
 </head>
 
 <body>
-    <div style="padding-top: 20px;">
-        <a href="bookings.html" class="back-button" onclick="window.history.back()">⬅️</a>
-    </div>
+    <a href="bookings.html" class="back-button" onclick="window.history.back()">⬅️</a>
 
     <h1>Edit Booking</h1>
 
-    <form id="editBookingForm">
-        <input type="hidden" id="bookingId">
+    <div class="form-container">
+        <form id="editBookingForm">
+            <input type="hidden" id="bookingId">
 
-        <label for="facilityDescription">Facility Description:</label>
-        <input type="text" id="facilityDescription" required><br><br>
+            <div class="form-group">
+                <label for="facilityDescription">Facility Description:</label>
+                <input type="text" id="facilityDescription" required>
+            </div>
 
-        <label for="dateFrom">Date From:</label>
-        <input type="date" id="dateFrom" required><br><br>
+            <div class="form-group">
+                <label for="dateFrom">Date From:</label>
+                <input type="date" id="dateFrom" required>
+            </div>
 
-        <label for="dateTo">Date To:</label>
-        <input type="date" id="dateTo" required><br><br>
+            <div class="form-group">
+                <label for="dateTo">Date To:</label>
+                <input type="date" id="dateTo" required>
+            </div>
 
-        <button type="submit">Update Booking</button>
-    </form>
+            <div class="form-group">
+                <button type="submit">Update Booking</button>
+            </div>
+        </form>
 
-    <div id="error" style="color: red;"></div>
-
-    <!-- Transfer Booking Button -->
-    <div style="padding-top: 20px;">
-        <button id="transferBookingBtn">Transfer Booking</button>
+        <div id="error"></div>
     </div>
 
+    <!-- Transfer Booking Button -->
+    <button id="transferBookingBtn">Transfer Booking</button>
+
     <!-- Transfer Booking Modal -->
-    <div id="transferBookingModal" class="modal" style="display:none;">
+    <div id="transferBookingModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
 
@@ -175,12 +237,7 @@
         </div>
     </div>
 
-
-
-
-
-
-    <script src="editbooking.js" style="padding-top: 20px;"></script>
+    <script src="editbooking.js"></script>
 </body>
 
 </html>
