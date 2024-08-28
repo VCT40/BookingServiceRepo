@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Booking</title>
+    <style>
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+            }
+
+            .form-group button {
+                padding: 10px 20px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+                .form-group button:disabled {
+                    background-color: #aaa;
+                }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .modal-buttons {
+            margin-top: 20px;
+        }
+
+        .modal-button {
+            padding: 8px 16px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .delete-confirm-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+            .delete-confirm-button.enabled {
+                opacity: 1;
+                cursor: pointer;
+            }
+
+        .confirmation-input {
+            margin-top: 10px;
+            padding: 5px;
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div style="padding-top: 20px;">
+        <a href="bookings.html" class="back-button" onclick="window.history.back()">⬅️</a>
+    </div>
+
+    <h1>Edit Booking</h1>
+
+    <form id="editBookingForm">
+        <input type="hidden" id="bookingId">
+
+        <label for="facilityDescription">Facility Description:</label>
+        <input type="text" id="facilityDescription" required><br><br>
+
+        <label for="dateFrom">Date From:</label>
+        <input type="date" id="dateFrom" required><br><br>
+
+        <label for="dateTo">Date To:</label>
+        <input type="date" id="dateTo" required><br><br>
+
+        <button type="submit">Update Booking</button>
+    </form>
+
+    <div id="error" style="color: red;"></div>
+
+    <!-- Transfer Booking Button -->
+    <div style="padding-top: 20px;">
+        <button id="transferBookingBtn">Transfer Booking</button>
+    </div>
+
+    <!-- Transfer Booking Modal -->
+    <div id="transferBookingModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <h2>Transfer To</h2>
+            <input type="text" id="transferToUser" class="confirmation-input" placeholder="Enter username">
+
+            <h2>To confirm, type "Transfer booking id <span id="bookingIdText"></span>" in the box below</h2>
+            <input type="text" id="confirmTransfer" class="confirmation-input" autocomplete="off" onpaste="return false" ondrop="return false" placeholder="Type confirmation text">
+
+            <div class="modal-buttons">
+                <button id="confirmTransferBtn" class="delete-confirm-button" disabled>Confirm Transfer</button>
+                <button id="cancelTransfer" class="modal-button no-button">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script src="editbooking.js" style="padding-top: 20px;"></script>
+</body>
+
+</html>

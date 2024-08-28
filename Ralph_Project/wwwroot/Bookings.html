@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings</title>
+    <style>
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 8px 16px;
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+        }
+
+        .modal-button {
+            padding: 8px 16px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .yes-button {
+            background-color: green;
+            color: white;
+        }
+
+        .no-button {
+            background-color: gray;
+            color: white;
+        }
+
+        /* New styles for the delete confirmation */
+        .confirmation-input {
+            margin-top: 10px;
+            padding: 5px;
+            width: 100%;
+        }
+
+        .delete-confirm-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+            .delete-confirm-button.enabled {
+                opacity: 1;
+                cursor: pointer;
+            }
+    </style>
+</head>
+<body>
+    <h1>Your Bookings</h1>
+
+    <button class="logout-button" id="logoutButton">Log Out</button>
+
+    <table id="bookingsTable" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Facility Description</th>
+                <th>Booking Date From</th>
+                <th>Booking Date To</th>
+                <th>Booking Status</th>
+                <th>Booked By</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Booking rows will be appended here -->
+        </tbody>
+    </table>
+
+    <div id="error" style="color: red;"></div>
+
+    <div style="padding-top: 20px;">
+        <a href="CreateBooking.html">
+            <button>Make a booking</button>
+        </a>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you want to log out?</p>
+            <div class="modal-buttons">
+                <button id="confirmLogout" class="modal-button yes-button">Yes</button>
+                <button id="cancelLogout" class="modal-button no-button">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <p id="deleteMessage"></p>
+            <input type="text" id="deleteInput" class="confirmation-input" autocomplete="false" onpaste="return false" ondrop="return false" placeholder="Type to confirm...">
+            <button id="confirmDelete" class="delete-confirm-button" autocomplete="false">Delete Booking</button>
+            <button id="cancelDelete" class="modal-button no-button">Cancel</button>
+        </div>
+    </div>
+
+    <script src="bookings.js"></script>
+</body>
+</html>

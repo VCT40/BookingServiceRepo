@@ -1,0 +1,6 @@
+@Ralph_Project_HostAddress = http://localhost:5094
+
+GET {{Ralph_Project_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
